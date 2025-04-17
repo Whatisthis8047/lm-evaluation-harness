@@ -1,4 +1,4 @@
-task: ifeval
+task: ifeval_kor
 dataset_path: whatisthis8047/IFEval-Kor
 dataset_name: null
 output_type: generate_until
@@ -26,4 +26,4 @@ metric_list:
     aggregation: !function utils.agg_inst_level_acc
     higher_is_better: true
 metadata:
-  version: 4.0
+  version: 1.0

@@ -4,35 +4,15 @@
 
 구글 리서치팀에서 개발한 IF 벤치마크를 한국어에서도 테스트할 수 있도록 한국어용으로 변형한 벤치마크입니다.
 
+### Groups and Tasks
 
-## 기존 벤치마크와 차이점:
+#### Groups
 
-**"데이터"** 와 **"채점 코드"** 에 대한 변경이 이루어졌습니다.
-### 데이터
-HF 레포: [whatisthis8047/IFEval-Kor](https://huggingface.co/datasets/whatisthis8047/IFEval-Kor)
-google/IFEval 데이터셋을 GPT를 이용하여 번역한 후, 수기로 검수하였습니다.
-제거된 항목:
-- 번역이 어색하거나, 잘못 되었던 문장
-- 서구권 편향적인 질문
-- 채점 항목이 알파벳에 종속적인 지시 문항. (예: 대문자로 작성하시오 등)
+* Not part of a group yet
 
-이외 자세한 전처리 과정은 허깅페이스 데이터셋 카드에 업데이트하도록 하겠습니다.
+#### Tasks
 
-### 채점 코드 
-1. `instruction._CONSTRAINED_RESPONSE_OPTIONS` 번역
-2. `instruciton._ENDING_OPTIONS` 번역
-3. KeywordChecker, KeywordFrequencyChecker, ParagraphFirstWordCheck, KeySenctenceChecker, ForbiddenWords, RepeatPromptThenAnswer, EndChecker 
-   1. unicode.normalize('NFC',)로 정규화 수행
-4. `instructions_util.count_sentences()` 수정
-   1. nltk 라이브러리(영문 형태소 분석기) 의존성 제거
-
-
-설치방법 (사용법은 [lm-evaluation-harness 레포](https://github.com/EleutherAI/lm-evaluation-harness) 참고)
-```
-git clone --depth 1 https://github.com/Whatisthis8047/lm-evaluation-harness.git
-cd lm-evaluation-harness
-pip install -e .
-```
+* `ifeval_kor`
 
 버그나, 개선사항에 대한 피드백은 언제나 환영입니다 :)
 
