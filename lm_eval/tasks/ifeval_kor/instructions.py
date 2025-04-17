@@ -434,7 +434,7 @@ class ConstrainedStartChecker(Instruction):
         return True if response_with_constrained_start else False
 
 
-# class HighlightSectionChecker(Instruction):/
+class HighlightSectionChecker(Instruction):
     """Checks the highlighted section."""
 
     def build_description(self, *, num_highlights=None):
@@ -1161,7 +1161,7 @@ class ForbiddenWords(Instruction):
 
 
 # 현재(25.04.17 lm-eval-harness ifeval 기준) 사용하지 않는 채점기준
-# class RephraseParagraph(Instruction):
+class RephraseParagraph(Instruction):
     """Checks that the paragraph is rephrased."""
 
     def build_description(self, *, original_paragraph, low, high):
