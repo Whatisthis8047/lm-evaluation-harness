@@ -71,7 +71,7 @@ google/IFEval 데이터셋을 GPT를 이용하여 번역한 후, 수기로 검�
 4. `instructions_util.count_sentences()` 수정
    1. nltk 라이브러리(영문 형태소 분석기) 의존성 제거
 
-
+---
 ### Metric 에 대한 보충 설명
 
 **strict** 와 **loose**:
