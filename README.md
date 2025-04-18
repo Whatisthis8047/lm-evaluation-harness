@@ -2,7 +2,7 @@
 ## IFEval-Kor: 한국어 LLM Instruciton Following 벤치마크
 - This is custom branch for IFEval-Kor benchemark, forked from `lm-eval-harness` Benchmark Framework [[Original Repo](https://github.com/EleutherAI/lm-evaluation-harness)]. Transported IFEval Benchmark into Korean.
 
-구글 리서치팀에서 개발한 오픈소스 IFEval 벤치마크를 한국어에서도 테스트할 수 있도록 한국어용으로 변형한 벤치마크입니다.
+구글 리서치팀에서 개발한 오픈소스 IFEval 벤치마크를 한국어에서도 테스트할 수 있도록 한국어용으로 변형한 벤치마크입니다. [IFEval 벤치마크 Paper](https://arxiv.org/pdf/2311.07911)
 추가된 벤치마크 task 관련 코드는 [/lm_eval/tasks/ifeval_kor](https://github.com/Whatisthis8047/lm-evaluation-harness/tree/main/lm_eval/tasks/ifeval_kor) 에서 확인할 수 있습니다.
 
 ## 실행
@@ -47,7 +47,6 @@ lm_eval --model vllm \
     --tasks ifeval_kor 
 ```
 
-(lm-eval-harness 에서 사용하는 '--'(flags) 용법은 [기존 레포](https://github.com/EleutherAI/lm-evaluation-harness/tree/main) 또는 아래 원본 README 참조)
 
 
 ## 기존 IFEval 벤치마크와 차이점:
@@ -64,13 +63,41 @@ google/IFEval 데이터셋을 GPT를 이용하여 번역한 후, 수기로 검�
 
 ### 채점 코드 
 1. `instruction._CONSTRAINED_RESPONSE_OPTIONS` 번역
-2. `instruciton._ENDING_OPTIONS` 번역
-3. KeywordChecker, KeywordFrequencyChecker, ParagraphFirstWordCheck, KeySenctenceChecker, ForbiddenWords, RepeatPromptThenAnswer, EndChecker 
+
+2. `instruciton._ENDING_OPTIONS` 번역 
+
+3. `KeywordChecker`, `KeywordFrequencyChecker`, `ParagraphFirstWordCheck`, `KeySenctenceChecker`, `ForbiddenWords`, `RepeatPromptThenAnswer`, `EndChecker` 
    1. unicode.normalize('NFC',)로 정규화 수행
 4. `instructions_util.count_sentences()` 수정
    1. nltk 라이브러리(영문 형태소 분석기) 의존성 제거
 
+
+### Metric 에 대한 보충 설명
+
+**strict** 와 **loose**:
+- **strict** 는 응답에 대해 아무런 변형 없이 filtered response 에 넣고 instruction을 통과하냐 못하냐를 기준으로 엄격하게 평가합니다.
+
+- **loose** 는 응답에 대해 <u>3가지 정도의 변형(transform)</u> 을 수행한 뒤에 비교함으로써 위음성(맞는데 틀림 체크)을 방지합니다.
+
+변형 함수 3가지:
+
+- 마크다운 스타일 기호 *, ** 제거
+- 첫 번째 줄 제거 (ex: "요청하신 응답입니다:")
+- 마지막 줄 제거 (ex: "도움이 되었나요?")
+
+위 세 가지 경우 모두를 체크(총 8가지 경우)하여, 한 경우라도 true 라고 나올 시 true로 기록하게 됩니다.  
+
+
+**prompt-level** 과 **instruction-level(inst-level)**
+
+- **prompt-level** 은 "프롬프트에 포함된 모든 지시사항을 모델이 잘 지켰는가"를 체크합니다. 즉, 여러개의 지시사항이 있을 경우엔 모두 지켜야만 True, 하나라도 지키지 못하면 False로 기록됩니다.
+
+- **instruction-level** 은 "프롬프트에 제시된 각각의 지시사항을 모델이 잘 지켰는가"를 체크합니다. 여러개의 지시사항이 있다면 하나씩 계산하여 True와 False를 기록합니다.
+
+(lm-eval-harness 에서 사용하는 '--'(flags) 용법은 [기존 레포](https://github.com/EleutherAI/lm-evaluation-harness/tree/main) 또는 아래 원본 README 참조)
+
 아래는 기존 레포 README.md:
+
 ---
 # Language Model Evaluation Harness
 
