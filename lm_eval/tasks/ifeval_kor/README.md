@@ -3,6 +3,7 @@
 - This is custom branch for IFEval-Kor benchemark, forked from `lm-eval-harness` Benchmark Framework [[Original Repo](https://github.com/EleutherAI/lm-evaluation-harness)]. Transported IFEval Benchmark into Korean.
 
 구글 리서치팀에서 개발한 IF 벤치마크를 한국어에서도 테스트할 수 있도록 한국어용으로 변형한 벤치마크입니다.
+평가에 활용되는 데이터셋은 [/whatisthis8047/IFEval-Kor](https://huggingface.co/datasets/whatisthis8047/IFEval-Kor) 레포에 공개되어 있습니다.
 
 ### Groups and Tasks
 
@@ -17,7 +18,6 @@
 버그나, 개선사항에 대한 피드백은 언제나 환영입니다 :)
 
 이건모 | email: rjsah80471@gmail.com
-
 
 
 아래는 원본 IFEval 벤치마크 설명입니다.
