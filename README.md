@@ -2,12 +2,56 @@
 ## IFEval-Kor: 한국어 LLM Instruciton Following 벤치마크
 - This is custom branch for IFEval-Kor benchemark, forked from `lm-eval-harness` Benchmark Framework [[Original Repo](https://github.com/EleutherAI/lm-evaluation-harness)]. Transported IFEval Benchmark into Korean.
 
-구글 리서치팀에서 개발한 IF 벤치마크를 한국어에서도 테스트할 수 있도록 한국어용으로 변형한 벤치마크입니다.
+구글 리서치팀에서 개발한 오픈소스 IFEval 벤치마크를 한국어에서도 테스트할 수 있도록 한국어용으로 변형한 벤치마크입니다.
+추가된 벤치마크 task 관련 코드는 [/lm_eval/tasks/ifeval_kor](https://github.com/Whatisthis8047/lm-evaluation-harness/tree/main/lm_eval/tasks/ifeval_kor) 에서 확인할 수 있습니다.
+
+## 실행
+기존 lm_eval_harness로 평가를 해보셨다면: `--tasks ifeval_kor` 로 실행!
+
+IFEval-Kor 로 lm-eval-harness 평가를 처음하신다면:
+### 실행 가이드
+- lm-eval-harness, dependency 설치
+```bash
+git clone --depth 1 https://github.com/EleutherAI/lm-evaluation-harness
+cd lm-evaluation-harness
+pip install -e ".[ifeval_kor]"
+```
+
+- Hugging Face `transformers` 이용시
+(Hugging Face에 업로드된 모델을 평가하는 경우)
+```bash
+lm_eval --model hf \
+    --model_args pretrained={HF_MODEL_REPO} \
+    --tasks ifeval_kor \
+    --device cuda:0 \
+    --batch_size 8 # optional
+```
+
+- vllm 이용시
+
+**vllm 설치**
+```bash
+pip install lm_eval[vllm]
+```
+
+[25.04.18] vllm:pyzmq ValueError 발생 시
+```bash
+# pyzmq 라이브러리 업데이트 후 진행
+pip install pyzmq -U
+```
+
+**vllm으로 벤치마크 진행**
+```bash
+lm_eval --model vllm \
+    --model_args pretrained={MODEL_NAME},trust_remote_code=True \
+    --tasks ifeval_kor 
+```
+
+(lm-eval-harness 에서 사용하는 '--'(flags) 용법은 [기존 레포](https://github.com/EleutherAI/lm-evaluation-harness/tree/main) 또는 아래 원본 README 참조)
 
 
-## 기존 벤치마크와 차이점:
-
-**"데이터"** 와 **"채점 코드"** 에 대한 변경이 이루어졌습니다.
+## 기존 IFEval 벤치마크와 차이점:
+**데이터** 와 **채점 코드** 에 대한 변경이 이루어졌습니다.
 ### 데이터
 HF 레포: [whatisthis8047/IFEval-Kor](https://huggingface.co/datasets/whatisthis8047/IFEval-Kor)
 google/IFEval 데이터셋을 GPT를 이용하여 번역한 후, 수기로 검수하였습니다.
@@ -16,7 +60,7 @@ google/IFEval 데이터셋을 GPT를 이용하여 번역한 후, 수기로 검�
 - 서구권 편향적인 질문
 - 채점 항목이 알파벳에 종속적인 지시 문항. (예: 대문자로 작성하시오 등)
 
-이외 자세한 전처리 과정은 허깅페이스 데이터셋 카드에 업데이트하도록 하겠습니다.
+자세한 전처리 과정은 허깅페이스 데이터셋 카드에 업데이트 예정입니다.
 
 ### 채점 코드 
 1. `instruction._CONSTRAINED_RESPONSE_OPTIONS` 번역
@@ -26,6 +70,7 @@ google/IFEval 데이터셋을 GPT를 이용하여 번역한 후, 수기로 검�
 4. `instructions_util.count_sentences()` 수정
    1. nltk 라이브러리(영문 형태소 분석기) 의존성 제거
 
+아래는 기존 레포 README.md:
 ---
 # Language Model Evaluation Harness
 
