@@ -1,8 +1,8 @@
-# IFEval-Kor
-## IFEval-Kor: 한국어 LLM Instruciton Following 벤치마크
+# IFEval-Kor: 한국어 LLM Instruciton Following 벤치마크
+
 - This is custom branch for IFEval-Kor benchemark, forked from `lm-eval-harness` Benchmark Framework [[Original Repo](https://github.com/EleutherAI/lm-evaluation-harness)]. Transported IFEval Benchmark into Korean.
 
-구글 리서치팀에서 개발한 오픈소스 IFEval 벤치마크를 한국어에서도 테스트할 수 있도록 한국어용으로 변형한 벤치마크입니다. [IFEval 벤치마크 Paper](https://arxiv.org/pdf/2311.07911)
+구글 리서치팀에서 개발한 오픈소스 **IFEval 벤치마크**를 한국어에서도 테스트할 수 있도록 한국어용으로 변형한 벤치마크입니다. [IFEval 벤치마크 Paper](https://arxiv.org/pdf/2311.07911)
 추가된 벤치마크 task 관련 코드는 [/lm_eval/tasks/ifeval_kor](https://github.com/Whatisthis8047/lm-evaluation-harness/tree/main/lm_eval/tasks/ifeval_kor) 에서 확인할 수 있습니다.
 
 ## 실행
